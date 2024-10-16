@@ -1,7 +1,3 @@
-//your JS code here.
-
-// Do not change code below this line
-// This code will just display the questions to the screen
 const questions = [
   {
     question: "What is the capital of France?",
@@ -30,6 +26,17 @@ const questions = [
   },
 ];
 
+const submitButton = document.getElementById("submit");
+const questionsElement = document.getElementById("questions");
+
+// Get the saved progress from session storage
+const savedProgress = JSON.parse(sessionStorage.getItem("progress"));
+// Submit the quiz and show the score
+submitButton.addEventListener("click", showScore);
+
+// If there is saved progress, use it. Otherwise, start from the beginning.
+let userAnswers = savedProgress ? savedProgress : [];
+
 // Display the quiz questions and choices
 function renderQuestions() {
   for (let i = 0; i < questions.length; i++) {
@@ -54,6 +61,7 @@ function renderQuestions() {
   }
 }
 
+// Save the user's answer when they select a choice
 function saveAnswers() {
   const choiceElements = document.querySelectorAll("input[type=radio]");
   for (let i = 0; i < choiceElements.length; i++) {
